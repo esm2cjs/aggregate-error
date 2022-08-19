@@ -1,5 +1,5 @@
-import indentString from 'indent-string';
-import cleanStack from 'clean-stack';
+import indentString from '@esm2cjs/indent-string';
+import cleanStack from '@esm2cjs/clean-stack';
 
 const cleanInternalStack = stack => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, '');
 

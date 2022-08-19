@@ -1,5 +1,5 @@
 import test from 'ava';
-import AggregateError from './index.js';
+import AggregateError from './esm/index.js';
 
 test('main', t => {
 	const error = new AggregateError([
