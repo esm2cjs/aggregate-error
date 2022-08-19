@@ -1,60 +1,52 @@
-# aggregate-error
+# @esm2cjs/aggregate-error
 
-> Create an error from multiple errors
-
-*Note: With [Node.js 15](https://medium.com/@nodejs/node-js-v15-0-0-is-here-deb00750f278), there's now a built-in [`AggregateError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError) type.*
+This is a fork of https://github.com/sindresorhus/aggregate-error, but automatically patched to support ESM **and** CommonJS, unlike the original repository.
 
 ## Install
 
+You can use an npm alias to install this package under the original name:
+
 ```
-$ npm install aggregate-error
+npm i aggregate-error@npm:@esm2cjs/aggregate-error
+```
+
+```jsonc
+// package.json
+"dependencies": {
+    "aggregate-error": "npm:@esm2cjs/aggregate-error"
+}
+```
+
+but `npm` might dedupe this incorrectly when other packages depend on the replaced package. If you can, prefer using the scoped package directly:
+
+```
+npm i @esm2cjs/aggregate-error
+```
+
+```jsonc
+// package.json
+"dependencies": {
+    "@esm2cjs/aggregate-error": "^ver.si.on"
+}
 ```
 
 ## Usage
 
 ```js
-import AggregateError from 'aggregate-error';
+// Using ESM import syntax
+import AggregateError from "@esm2cjs/aggregate-error";
 
-const error = new AggregateError([new Error('foo'), 'bar', {message: 'baz'}]);
-
-throw error;
-/*
-AggregateError:
-    Error: foo
-        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:33)
-    Error: bar
-        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
-    Error: baz
-        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
-    at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)
-    at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
-    at Module._compile (module.js:556:32)
-    at Object.Module._extensions..js (module.js:565:10)
-    at Module.load (module.js:473:32)
-    at tryModuleLoad (module.js:432:12)
-    at Function.Module._load (module.js:424:3)
-    at Module.runMain (module.js:590:10)
-    at run (bootstrap_node.js:394:7)
-    at startup (bootstrap_node.js:149:9)
-*/
-
-for (const individualError of error.errors) {
-	console.log(individualError);
-}
-//=> [Error: foo]
-//=> [Error: bar]
-//=> [Error: baz]
+// Using CommonJS require()
+const AggregateError = require("@esm2cjs/aggregate-error").default;
 ```
 
-## API
+> **Note:**
+> Because the original module uses `export default`, you need to append `.default` to the `require()` call.
 
-### AggregateError(errors)
+For more details, please see the original [repository](https://github.com/sindresorhus/aggregate-error).
 
-Returns an `Error`.
+## Sponsoring
 
-#### errors
+To support my efforts in maintaining the ESM/CommonJS hybrid, please sponsor [here](https://github.com/sponsors/AlCalzone).
 
-Type: `Array<Error|object|string>`
-
-If a string, a new `Error` is created with the string as the error message.\
-If a non-Error object, a new `Error` is created with all properties from the object copied over.
+To support the original author of the module, please sponsor [here](https://github.com/sindresorhus/aggregate-error).
